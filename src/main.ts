@@ -253,12 +253,12 @@ function handleAdminPage(user: User) {
   if (!isAdminLogicInitialized) {
     setupAdminTabs();
     setupBroadcastManager();
-    setupUserManagement(user);
+    setupUserManagement();
     isAdminLogicInitialized = true;
   }
 }
 
-function setupUserManagement(user: User) {
+function setupUserManagement() {
   // User Management
   const lookupBtn = document.getElementById('lookup-user-btn')
   const targetUidInput = document.getElementById('target-uid') as HTMLInputElement
