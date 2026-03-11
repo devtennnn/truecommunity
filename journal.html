@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trade Journal | TRUE CLUB VIP</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <a href="index.html" class="logo">
+          <i data-lucide="trending-up" class="logo-icon"></i>
+          TRUE <span>CLUB</span> <span class="beta-tag">BETA</span>
+        </a>
+        <nav class="nav">
+          <a href="signals.html">Live Signals</a>
+          <a href="vip.html">VIP Member</a>
+          <a href="journal.html" class="active vip-only" style="display: none;">Journal</a>
+          <a href="lessons.html">Lessons</a>
+          <a href="settings.html" class="auth-only" style="display: none;">Settings</a>
+          <a href="admin.html" class="admin-only" style="display: none;">Admin</a>
+        </nav>
+        <div class="header-actions">
+          <button id="login-btn" class="btn btn-primary">
+            <i data-lucide="user"></i> Login
+          </button>
+          <button class="menu-toggle" id="menu-toggle">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <section class="journal-hero fade-in">
+        <h1>Trade <span class="highlight">Journal</span></h1>
+        <p>Log your trades, track your progress, and master your psychology.</p>
+      </section>
+
+      <div class="journal-stats-grid fade-in" style="animation-delay: 0.1s">
+        <div class="stat-card glass-card">
+          <span class="label">Total Trades</span>
+          <div class="value" id="stat-total-trades">0</div>
+        </div>
+        <div class="stat-card glass-card">
+          <span class="label">Win Rate</span>
+          <div class="value highlight" id="stat-win-rate">0%</div>
+        </div>
+        <div class="stat-card glass-card">
+          <span class="label">Net Profit (Pips)</span>
+          <div class="value success" id="stat-net-pips">0</div>
+        </div>
+      </div>
+
+      <div class="journal-layout fade-in" style="animation-delay: 0.2s">
+        <!-- Add Trade Form -->
+        <div class="glass-card journal-form-card">
+          <div class="admin-card-header">
+            <i data-lucide="plus-circle"></i>
+            <h3>Log New Trade</h3>
+          </div>
+          <form id="journal-form" class="admin-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Pair</label>
+                <input type="text" id="trade-pair" placeholder="EUR/USD" required>
+              </div>
+              <div class="form-group">
+                <label>Type</label>
+                <select id="trade-type" class="admin-select">
+                  <option value="buy">BUY</option>
+                  <option value="sell">SELL</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row" style="margin-top: 15px;">
+              <div class="form-group"><label>Entry</label><input type="number" step="any" id="trade-entry" placeholder="1.0850" required></div>
+              <div class="form-group"><label>Exit</label><input type="number" step="any" id="trade-exit" placeholder="1.0950" required></div>
+              <div class="form-group"><label>Pips</label><input type="number" id="trade-pips" placeholder="+50" required></div>
+            </div>
+            <div class="form-group" style="margin-top: 15px;">
+              <label>Result</label>
+              <select id="trade-result" class="admin-select">
+                <option value="win">WIN</option>
+                <option value="loss">LOSS</option>
+                <option value="breakeven">BREAK EVEN</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-top: 15px;">
+              <label>Notes / Setup</label>
+              <textarea id="trade-notes" rows="3" placeholder="Market structure shift on H1..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary full-width">Add to Journal</button>
+          </form>
+        </div>
+
+        <!-- Trade History -->
+        <div class="glass-card journal-history-card" style="margin-top: 32px;">
+          <div class="admin-card-header">
+            <i data-lucide="history"></i>
+            <h3>Recent Trades</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="journal-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Pair</th>
+                  <th>Type</th>
+                  <th>Pips</th>
+                  <th>Result</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="journal-list">
+                <!-- Data will be injected here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <span id="year"></span> TRUE CLUB. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

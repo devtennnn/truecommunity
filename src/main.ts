@@ -80,11 +80,13 @@ if (menuToggle && nav) {
 let isSignUp = false
 let unsubscribeUser: (() => void) | null = null
 let unsubscribeSignals: (() => void) | null = null
+let unsubscribeJournal: (() => void) | null = null
 
 // --- AUTH OBSERVER ---
 onAuthStateChanged(auth, async (user) => {
   const authOnlyLinks = document.querySelectorAll('.auth-only')
   const adminOnlyLinks = document.querySelectorAll('.admin-only')
+  const vipOnlyLinks = document.querySelectorAll('.vip-only')
   const loginBtn = document.getElementById('login-btn') as HTMLButtonElement
 
   if (unsubscribeUser) { unsubscribeUser(); unsubscribeUser = null; }
@@ -112,10 +114,20 @@ onAuthStateChanged(auth, async (user) => {
       const isVIP = !!(userData?.role === 'vip' || userData?.role === 'admin' || isAdmin)
       const path = window.location.pathname
 
+      if (isVIP) {
+        vipOnlyLinks.forEach(link => (link as HTMLElement).style.display = 'block')
+      } else {
+        vipOnlyLinks.forEach(link => (link as HTMLElement).style.display = 'none')
+      }
+
       if (path.includes('settings')) { handleSettingsPage(user, userData) }
       if (path.includes('signals')) { handleSignalsPage(isVIP) }
       if (path.includes('lessons')) { handleLessonsPage(isVIP) }
       if (path.includes('admin')) { handleAdminPage(user) }
+      if (path.includes('journal')) { 
+        if (isVIP) handleJournalPage(user)
+        else window.location.href = 'vip.html'
+      }
     })
   } else {
     handleGuestState()
@@ -132,9 +144,101 @@ function handleGuestState() {
   }
   document.querySelectorAll('.auth-only').forEach(l => (l as HTMLElement).style.display = 'none')
   document.querySelectorAll('.admin-only').forEach(l => (l as HTMLElement).style.display = 'none')
-  if (window.location.pathname.includes('settings') || window.location.pathname.includes('admin')) window.location.href = 'index.html'
+  document.querySelectorAll('.vip-only').forEach(l => (l as HTMLElement).style.display = 'none')
+  if (window.location.pathname.includes('settings') || window.location.pathname.includes('admin') || window.location.pathname.includes('journal')) window.location.href = 'index.html'
   if (window.location.pathname.includes('signals')) handleSignalsPage(false)
   if (window.location.pathname.includes('lessons')) handleLessonsPage(false)
+}
+
+// --- JOURNAL PAGE LOGIC ---
+async function handleJournalPage(user: User) {
+  const form = document.getElementById('journal-form') as HTMLFormElement
+  const list = document.getElementById('journal-list')
+  if (!list) return
+
+  if (unsubscribeJournal) unsubscribeJournal()
+
+  // Real-time listener for user's journal
+  const q = query(collection(db, 'journals'), where('userId', '==', user.uid), orderBy('createdAt', 'desc'))
+  unsubscribeJournal = onSnapshot(q, (snapshot) => {
+    list.innerHTML = ''
+    let totalTrades = 0
+    let wins = 0
+    let totalPips = 0
+
+    snapshot.forEach((docSnap) => {
+      const trade = docSnap.data()
+      totalTrades++
+      if (trade.result === 'win') wins++
+      totalPips += Number(trade.pips)
+
+      const row = document.createElement('tr')
+      row.innerHTML = `
+        <td>${formatDate(trade.createdAt)}</td>
+        <td><strong>${trade.pair}</strong></td>
+        <td><span class="type ${trade.type}">${trade.type.toUpperCase()}</span></td>
+        <td class="${trade.pips >= 0 ? 'success' : 'danger'}">${trade.pips > 0 ? '+' : ''}${trade.pips}</td>
+        <td><span class="trade-result-badge ${trade.result}">${trade.result.toUpperCase()}</span></td>
+        <td><button class="btn btn-small btn-delete" data-id="${docSnap.id}"><i data-lucide="trash-2"></i></button></td>
+      `
+      list.appendChild(row)
+    })
+
+    // Update stats
+    const winRate = totalTrades > 0 ? Math.round((wins / totalTrades) * 100) : 0
+    const totalTradesEl = document.getElementById('stat-total-trades')
+    const winRateEl = document.getElementById('stat-win-rate')
+    const netPipsEl = document.getElementById('stat-net-pips')
+
+    if (totalTradesEl) totalTradesEl.textContent = totalTrades.toString()
+    if (winRateEl) winRateEl.textContent = `${winRate}%`
+    if (netPipsEl) {
+      netPipsEl.textContent = `${totalPips > 0 ? '+' : ''}${totalPips}`
+      netPipsEl.className = `value ${totalPips >= 0 ? 'success' : 'danger'}`
+    }
+
+    createIcons({ icons })
+
+    // Handle delete buttons
+    list.querySelectorAll('.btn-delete').forEach(btn => {
+      (btn as HTMLButtonElement).onclick = async () => {
+        if (confirm('Delete this trade from your journal?')) {
+          await deleteDoc(doc(db, 'journals', (btn as HTMLButtonElement).dataset.id!))
+          showToast('Trade deleted.')
+        }
+      }
+    })
+  })
+
+  // Handle form submission
+  if (form) {
+    form.onsubmit = async (e) => {
+      e.preventDefault()
+      const pair = (document.getElementById('trade-pair') as HTMLInputElement).value
+      const type = (document.getElementById('trade-type') as HTMLSelectElement).value
+      const entry = (document.getElementById('trade-entry') as HTMLInputElement).value
+      const exit = (document.getElementById('trade-exit') as HTMLInputElement).value
+      const pips = (document.getElementById('trade-pips') as HTMLInputElement).value
+      const result = (document.getElementById('trade-result') as HTMLSelectElement).value
+      const notes = (document.getElementById('trade-notes') as HTMLTextAreaElement).value
+
+      try {
+        await addDoc(collection(db, 'journals'), {
+          userId: user.uid,
+          pair, type, entry, exit, pips: Number(pips), result, notes,
+          createdAt: Timestamp.now()
+        })
+        form.reset()
+        showToast('Trade logged successfully!')
+      } catch (err: any) { showToast(err.message, 'error') }
+    }
+  }
+}
+
+function formatDate(timestamp: any) {
+  if (!timestamp) return '---'
+  const date = timestamp.toDate()
+  return date.toLocaleDateString([], { month: 'short', day: 'numeric' })
 }
 
 // --- SIGNALS PAGE LOGIC ---

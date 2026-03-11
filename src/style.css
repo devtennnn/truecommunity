@@ -1678,7 +1678,124 @@ body {
   border-radius: 0 10px 10px 0;
 }
 
-.input-with-action input {
-  border-radius: 10px 0 0 10px !important;
+/* Journal Stats */
+.journal-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* Journal Table */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+.journal-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 600px;
+}
+
+.journal-table th, .journal-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.journal-table th {
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.journal-table tr:last-child td { border-bottom: none; }
+
+.journal-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.trade-result-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.trade-result-badge.win { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+.trade-result-badge.loss { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+.trade-result-badge.breakeven { background: rgba(148, 163, 184, 0.1); color: var(--text-muted); }
+
+.journal-form-card, .journal-history-card {
+  padding: 32px;
+}
+
+.journal-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 1024px) {
+  .journal-layout {
+    grid-template-columns: 380px 1fr;
+    align-items: start;
+  }
+  .journal-history-card {
+    margin-top: 0 !important;
+  }
+}
+
+.btn-small.btn-delete {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  padding: 6px 12px;
+  font-size: 0.7rem;
+}
+
+.btn-small.btn-delete:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+.admin-select {
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  color: #fff;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+}
+
+.admin-select:focus {
+  border-color: var(--primary-color);
+}
+
+.admin-form textarea {
+  width: 100%;
+  padding: 12px;
+  background: #000;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  color: #fff;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.admin-form textarea:focus {
+  border-color: var(--primary-color);
 }
 
