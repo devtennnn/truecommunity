@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lessons | TRUE CLUB Forex Education</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <a href="index.html" class="logo">
+          <i data-lucide="trending-up" class="logo-icon"></i>
+          TRUE <span>CLUB</span> <span class="beta-tag">BETA</span>
+        </a>
+        <nav class="nav">
+          <a href="signals.html">Live Signals</a>
+          <a href="vip.html">VIP Member</a>
+          <a href="index.html#analysis">Analysis</a>
+          <a href="lessons.html" class="active">Lessons</a>
+          <a href="settings.html" class="auth-only" style="display: none;">Settings</a>
+          <a href="admin.html" class="auth-only" style="display: none;">Admin</a>
+        </nav>
+        <button id="login-btn" class="btn btn-primary">
+          <i data-lucide="user"></i> Login
+        </button>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <section class="lessons-hero fade-in">
+        <h1>Forex Trading <span class="highlight">Academy</span></h1>
+        <p>From beginner to pro, master the art of currency trading with our structured lessons.</p>
+      </section>
+
+      <div class="category-tabs fade-in" style="animation-delay: 0.2s">
+        <button class="tab-btn active" data-category="all">All Lessons</button>
+        <button class="tab-btn" data-category="free">Free Courses</button>
+        <button class="tab-btn" data-category="paid">VIP Premium</button>
+      </div>
+
+      <div class="lessons-grid fade-in" id="lessons-grid" style="animation-delay: 0.4s">
+        <!-- Courses will be dynamically updated by main.ts -->
+      </div>
+    </main>
+
+    <!-- VIDEO PLAYER MODAL -->
+    <div id="video-modal" class="modal video-modal">
+      <div class="modal-content video-content glass-card">
+        <span class="close-video" id="close-video">&times;</span>
+        <h3 id="video-title">Course Title</h3>
+        <div class="video-wrapper">
+          <div id="video-container">
+            <!-- Video Iframe or Video tag will be injected here -->
+          </div>
+        </div>
+        <div class="video-info">
+          <p id="video-desc">Course details will appear here.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <span id="year"></span> TRUE CLUB. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <div id="auth-modal" class="modal">
+      <div class="modal-content glass-card">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-title">Login to TRUE CLUB</h2>
+        <form id="auth-form" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+          </div>
+          <button type="submit" id="submit-auth-btn" class="btn btn-primary full-width">Sign In</button>
+        </form>
+        <div class="auth-toggle">
+          <p id="toggle-text">Don't have an account? <a href="#" id="toggle-auth">Sign Up</a></p>
+        </div>
+        <p id="auth-status" class="auth-status"></p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.dataset.category;
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          document.querySelectorAll('.course-card').forEach(card => {
+            if (category === 'all' || card.dataset.type === category) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

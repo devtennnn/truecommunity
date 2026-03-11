@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIP Membership | TRUE CLUB Forex</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <a href="index.html" class="logo">
+          <i data-lucide="trending-up" class="logo-icon"></i>
+          TRUE <span>CLUB</span> <span class="beta-tag">BETA</span>
+        </a>
+        <nav class="nav">
+          <a href="signals.html">Live Signals</a>
+          <a href="vip.html" class="active">VIP Member</a>
+          <a href="index.html#analysis">Analysis</a>
+          <a href="lessons.html">Lessons</a>
+          <a href="settings.html" class="auth-only" style="display: none;">Settings</a>
+          <a href="admin.html" class="auth-only" style="display: none;">Admin</a>
+        </nav>
+        <button id="login-btn" class="btn btn-primary">
+          <i data-lucide="user"></i> Login
+        </button>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <section class="vip-hero fade-in">
+        <h1>Elevate Your <span class="highlight">Trading</span></h1>
+        <p>Join our elite community of successful traders. Get the edge you need to dominate the Forex markets.</p>
+      </section>
+
+      <div class="pricing-grid fade-in" style="animation-delay: 0.2s">
+        <!-- Weekly Plan -->
+        <div class="pricing-card glass-card">
+          <h3>Weekly Access</h3>
+          <p>Short-term access to premium signals and setups.</p>
+          <div class="price">$9.99<span>/week</span></div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check-circle"></i> Daily Premium Signals</li>
+            <li><i data-lucide="check-circle"></i> Weekly Market Outlook</li>
+            <li><i data-lucide="check-circle"></i> Private Telegram Access</li>
+            <li><i data-lucide="check-circle"></i> 24/7 Support</li>
+          </ul>
+          <button class="btn btn-secondary full-width">Get Weekly</button>
+        </div>
+
+        <!-- Monthly Plan (Popular) -->
+        <div class="pricing-card glass-card popular">
+          <div class="popular-badge">Best Value</div>
+          <h3>Monthly Access</h3>
+          <p>Our most popular plan for consistent traders.</p>
+          <div class="price">$35<span>/month</span></div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check-circle"></i> All Weekly Features</li>
+            <li><i data-lucide="check-circle"></i> Full Course Unlocking</li>
+            <li><i data-lucide="check-circle"></i> Priority Signal Alerts</li>
+            <li><i data-lucide="check-circle"></i> Monthly Strategy Review</li>
+          </ul>
+          <button class="btn btn-primary full-width">Join Monthly Now</button>
+        </div>
+      </div>
+
+      <section class="payment-section glass-card fade-in" style="animation-delay: 0.4s">
+        <h2>Secure Payment Methods</h2>
+        <p>We accept a wide range of secure payment options for your convenience.</p>
+        <div class="payment-icons">
+          <i class="fab fa-cc-visa" title="Visa"></i>
+          <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+          <i class="fab fa-cc-paypal" title="PayPal"></i>
+          <i class="fab fa-cc-apple-pay" title="Apple Pay"></i>
+          <i class="fab fa-bitcoin" title="Bitcoin"></i>
+          <i class="fab fa-ethereum" title="Ethereum"></i>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <span id="year"></span> TRUE CLUB. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <div id="auth-modal" class="modal">
+      <div class="modal-content glass-card">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-title">Login to TRUE CLUB</h2>
+        <form id="auth-form" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+          </div>
+          <button type="submit" id="submit-auth-btn" class="btn btn-primary full-width">Sign In</button>
+        </form>
+        <div class="auth-toggle">
+          <p id="toggle-text">Don't have an account? <a href="#" id="toggle-auth">Sign Up</a></p>
+        </div>
+        <p id="auth-status" class="auth-status"></p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

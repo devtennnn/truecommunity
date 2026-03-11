@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control Center | TRUE CLUB Admin</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <a href="index.html" class="logo">
+          <i data-lucide="trending-up" class="logo-icon"></i>
+          TRUE <span>CLUB</span> <span class="beta-tag">BETA</span>
+        </a>
+        <nav class="nav" id="main-nav">
+          <a href="signals.html">Live Signals</a>
+          <a href="vip.html">VIP Member</a>
+          <a href="lessons.html">Lessons</a>
+          <a href="settings.html" class="auth-only">Settings</a>
+          <a href="admin.html" class="active admin-only">Admin</a>
+        </nav>
+        <button id="login-btn" class="btn btn-primary">
+          <i data-lucide="user"></i> Login
+        </button>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <section class="admin-hero fade-in">
+        <h1>Control <span class="highlight">Center</span></h1>
+        <p>Advanced management portal for TRUE CLUB administrators.</p>
+      </section>
+
+      <div class="admin-layout fade-in" style="animation-delay: 0.2s">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar-nav">
+          <button class="admin-nav-btn active" data-section="dashboard">
+            <i data-lucide="layout-dashboard"></i> Dashboard
+          </button>
+          <button class="admin-nav-btn" data-section="users">
+            <i data-lucide="users"></i> User Management
+          </button>
+          <button class="admin-nav-btn" data-section="signals">
+            <i data-lucide="signal"></i> Signal Manager
+          </button>
+          <button class="admin-nav-btn" data-section="broadcast">
+            <i data-lucide="megaphone"></i> Broadcast
+          </button>
+          <button class="admin-nav-btn" data-section="academy" disabled>
+            <i data-lucide="graduation-cap"></i> Academy (Soon)
+          </button>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="admin-main-view">
+          
+          <!-- Dashboard Pane -->
+          <div id="section-dashboard" class="admin-pane active">
+            <div class="stat-grid-modern">
+              <div class="stat-card-premium">
+                <span class="label">Total Members</span>
+                <div class="value" id="stat-total-users">0</div>
+              </div>
+              <div class="stat-card-premium">
+                <span class="label">VIP Members</span>
+                <div class="value highlight" id="stat-vip-users">0</div>
+              </div>
+              <div class="stat-card-premium">
+                <span class="label">Active Signals</span>
+                <div class="value" id="stat-active-signals">0</div>
+              </div>
+            </div>
+
+            <div class="glass-card admin-card">
+              <div class="admin-card-header">
+                <i data-lucide="zap"></i>
+                <h3>Quick Actions</h3>
+              </div>
+              <div class="admin-actions-grid">
+                <button id="quick-new-signal" class="btn btn-primary btn-small">New Signal</button>
+                <button id="quick-broadcast" class="btn btn-outline btn-small">Broadcast Alert</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Management Pane -->
+          <div id="section-users" class="admin-pane">
+            <div class="glass-card admin-card">
+              <div class="admin-card-header">
+                <i data-lucide="search"></i>
+                <h3>User Activation & Roles</h3>
+              </div>
+              
+              <div class="user-lookup-container">
+                <div class="form-group">
+                  <label>Paste User ID (UID)</label>
+                  <div class="input-with-action">
+                    <input type="text" id="target-uid" placeholder="Example: NeAapsMHHMSZ0yFdDataAEr0WLr1">
+                    <button id="lookup-user-btn" class="btn btn-secondary">Lookup</button>
+                  </div>
+                </div>
+
+                <div id="user-details-area" class="lookup-results" style="display: none;">
+                  <div class="info-item"><label>Display Name:</label> <span id="found-name">---</span></div>
+                  <div class="info-item"><label>Email Address:</label> <span id="found-email">---</span></div>
+                  <div class="info-item"><label>Current Status:</label> <span id="found-role" class="badge">---</span></div>
+
+                  <form id="admin-user-form" style="margin-top: 32px;">
+                    <div class="form-group">
+                      <label>Set Membership Level</label>
+                      <select id="user-role" class="admin-select">
+                        <option value="free">Free Member</option>
+                        <option value="vip">VIP Member</option>
+                        <option value="moderator">Moderator</option>
+                        <option value="admin">Administrator</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary full-width">Apply Role Update</button>
+                  </form>
+                </div>
+              </div>
+              
+              <div id="admin-status" class="admin-status-msg">
+                Ready for user lookup.
+              </div>
+            </div>
+          </div>
+
+          <!-- Signal Manager Pane -->
+          <div id="section-signals" class="admin-pane">
+            <!-- New Signal Form -->
+            <div class="glass-card admin-card" id="new-signal-area">
+              <div class="admin-card-header">
+                <i data-lucide="plus-circle"></i>
+                <h3>Publish New Signal</h3>
+              </div>
+              <form id="new-signal-form" class="admin-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Pair</label>
+                    <input type="text" id="sig-pair" placeholder="XAU/USD" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Action</label>
+                    <select id="sig-type" class="admin-select">
+                      <option value="buy">BUY</option>
+                      <option value="sell">SELL</option>
+                      <option value="buy limit">BUY LIMIT</option>
+                      <option value="sell limit">SELL LIMIT</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row" style="margin-top: 15px;">
+                  <div class="form-group"><label>Entry</label><input type="text" id="sig-entry" placeholder="1.0850" required></div>
+                  <div class="form-group"><label>Stop Loss</label><input type="text" id="sig-sl" placeholder="1.0820" required></div>
+                  <div class="form-group"><label>Take Profit</label><input type="text" id="sig-tp" placeholder="1.0950" required></div>
+                </div>
+                <div class="form-group" style="margin-top: 15px;">
+                  <label>Visibility</label>
+                  <select id="sig-access" class="admin-select">
+                    <option value="free">Public (Free)</option>
+                    <option value="vip">VIP Restricted</option>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Publish to Live Feed</button>
+              </form>
+            </div>
+
+            <!-- Signal Management List -->
+            <div class="glass-card admin-card" style="margin-top: 32px;">
+              <div class="admin-card-header">
+                <i data-lucide="list"></i>
+                <h3>Current Live Signals</h3>
+              </div>
+              <div id="admin-signals-list" class="signal-manager-list">
+                <!-- Injected via JS -->
+                <p class="text-muted" style="text-align: center; padding: 20px;">No signals found in database.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Broadcast Pane -->
+          <div id="section-broadcast" class="admin-pane">
+            <div class="glass-card admin-card">
+              <div class="admin-card-header">
+                <i data-lucide="megaphone"></i>
+                <h3>Telegram Broadcast</h3>
+              </div>
+              <form id="broadcast-form" class="admin-form">
+                <div class="form-group enchanted-group">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <label style="margin-bottom: 0;">Message Content</label>
+                    <span id="char-count" class="char-count-badge">0 / 4096</span>
+                  </div>
+                  <div class="textarea-wrapper">
+                    <textarea id="broadcast-message" rows="8" placeholder="Type your magic broadcast message here... Use HTML for styling (e.g. <b>bold</b>)" required></textarea>
+                    <div class="textarea-glow"></div>
+                  </div>
+                  <small class="form-tip">Standard Telegram limits apply. <b>Pro Tip:</b> HTML tags are supported!</small>
+                </div>
+                <div class="broadcast-media-section" style="margin-top: 24px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid var(--glass-border);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <label style="margin-bottom: 0;">Broadcast Image (Optional)</label>
+                    <div class="media-toggle" style="display: flex; gap: 8px; background: #000; padding: 4px; border-radius: 8px;">
+                      <button type="button" class="btn-toggle active" data-type="url">Link</button>
+                      <button type="button" class="btn-toggle" data-type="upload">Upload</button>
+                    </div>
+                  </div>
+
+                  <div id="media-url-input" class="media-input-pane active">
+                    <input type="url" id="broadcast-image-url" placeholder="https://example.com/image.jpg">
+                    <small class="form-tip">Enter a direct URL to an image.</small>
+                  </div>
+
+                  <div id="media-upload-input" class="media-input-pane">
+                    <div class="file-upload-wrapper" style="position: relative; height: 48px;">
+                      <input type="file" id="broadcast-image-file" accept="image/*" style="opacity: 0; position: absolute; width: 100%; height: 100%; cursor: pointer; z-index: 2;">
+                      <div class="file-dummy" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; border: 1px solid var(--glass-border); border-radius: 12px; display: flex; align-items: center; padding: 0 16px; color: var(--text-muted);">
+                        <i data-lucide="upload" style="width: 18px; margin-right: 10px;"></i>
+                        <span id="file-name-display">Choose image file...</span>
+                      </div>
+                    </div>
+                    <small class="form-tip">Select a local image to broadcast.</small>
+                  </div>
+                </div>
+                
+                <div class="form-group" style="margin-top: 24px;">
+                  <label>Bot Token</label>
+                  <input type="password" id="bot-token" value="8575253321:AAFVxzWDY_-xUg-O2lLbfjKrrklvSRynrv0" placeholder="Enter your Telegram Bot Token" required>
+                  <small class="form-tip">The default token is pre-filled.</small>
+                </div>
+
+                <div class="broadcast-targets" style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                  <div class="target-item">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; margin-bottom: 12px;">
+                      <input type="checkbox" id="send-to-channel" checked style="width: 18px; height: 18px; accent-color: var(--primary-color);">
+                      <span>Target Channel</span>
+                    </label>
+                    <div class="input-with-action">
+                      <input type="text" id="target-channel-id" value="-1003714015291" placeholder="-100...">
+                      <button type="button" class="btn btn-secondary btn-small verify-target" data-target="channel">Verify</button>
+                    </div>
+                    <small class="form-tip">Channel ID (with -100)</small>
+                  </div>
+                  <div class="target-item">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; margin-bottom: 12px;">
+                      <input type="checkbox" id="send-to-group" checked style="width: 18px; height: 18px; accent-color: var(--primary-color);">
+                      <span>Target Group</span>
+                    </label>
+                    <div class="input-with-action">
+                      <input type="text" id="target-group-id" value="-1003862113933" placeholder="-100...">
+                      <button type="button" class="btn btn-secondary btn-small verify-target" data-target="group">Verify</button>
+                    </div>
+                    <small class="form-tip">Group ID (with -100)</small>
+                  </div>
+                </div>
+
+                <div class="form-actions" style="margin-top: 32px;">
+                  <button type="submit" id="send-broadcast-btn" class="btn btn-primary">
+                    <i data-lucide="send"></i> Send Broadcast
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <span id="year"></span> TRUE CLUB. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Signals | TRUE CLUB Forex</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <a href="index.html" class="logo">
+          <i data-lucide="trending-up" class="logo-icon"></i>
+          TRUE <span>CLUB</span> <span class="beta-tag">BETA</span>
+        </a>
+        <nav class="nav" id="main-nav">
+          <a href="signals.html" class="active">Live Signals</a>
+          <a href="vip.html">VIP Member</a>
+          <a href="index.html#analysis">Analysis</a>
+          <a href="lessons.html">Lessons</a>
+          <a href="settings.html" class="auth-only" style="display: none;">Settings</a>
+          <a href="admin.html" class="admin-only" style="display: none;">Admin</a>
+        </nav>
+        <button id="login-btn" class="btn btn-primary">
+          <i data-lucide="user"></i> Login
+        </button>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <section class="signals-hero fade-in">
+        <h1>Live <span class="highlight">Trade Signals</span></h1>
+        <p>Real-time high-probability setups from our lead analysts.</p>
+      </section>
+
+      <div class="signals-container">
+        <div class="category-tabs fade-in" style="animation-delay: 0.1s">
+          <button class="tab-btn active">All Pairs</button>
+          <button class="tab-btn">Active</button>
+          <button class="tab-btn">Completed</button>
+        </div>
+
+        <div class="signals-grid" id="signals-grid">
+          <div class="signal-card glass-card premium-signal fade-in" style="animation-delay: 0.2s">
+            <div class="signal-header">
+              <div class="pair">EUR/USD</div>
+              <div class="badge vip">VIP ONLY</div>
+            </div>
+            <div class="signal-body locked">
+              <div class="signal-row">
+                <span>Type:</span> <span class="type buy">BUY LIMIT</span>
+              </div>
+              <div class="blur-content">
+                <div class="signal-row"><span>Entry:</span> <strong>1.08450</strong></div>
+                <div class="signal-row"><span>SL:</span> <strong>1.08100</strong></div>
+                <div class="signal-row"><span>TP:</span> <strong>1.09200</strong></div>
+              </div>
+              <div class="lock-overlay">
+                <i data-lucide="lock"></i>
+                <p>Unlock with VIP Membership</p>
+                <a href="vip.html" class="btn btn-primary btn-small">Join VIP</a>
+              </div>
+            </div>
+            <div class="signal-footer">
+              <span class="time">Posted 2 hours ago</span>
+            </div>
+          </div>
+
+          <div class="signal-card glass-card fade-in" style="animation-delay: 0.3s">
+            <div class="signal-header">
+              <div class="pair">GBP/JPY</div>
+              <div class="badge free">FREE</div>
+            </div>
+            <div class="signal-body">
+              <div class="signal-row">
+                <span>Type:</span> <span class="type sell">SELL</span>
+              </div>
+              <div class="signal-row">
+                <span>Entry:</span> <strong>190.450</strong>
+              </div>
+              <div class="signal-row">
+                <span>SL:</span> <strong class="danger">191.100</strong>
+              </div>
+              <div class="signal-row">
+                <span>TP:</span> <strong class="success">188.500</strong>
+              </div>
+            </div>
+            <div class="signal-footer">
+              <span class="time">Posted 5 hours ago</span>
+              <span class="status-active">● ACTIVE</span>
+            </div>
+          </div>
+
+          <div class="signal-card glass-card premium-signal fade-in" style="animation-delay: 0.4s">
+            <div class="signal-header">
+              <div class="pair">XAU/USD (GOLD)</div>
+              <div class="badge vip">VIP ONLY</div>
+            </div>
+            <div class="signal-body locked">
+              <div class="signal-row">
+                <span>Type:</span> <span class="type buy">BUY</span>
+              </div>
+              <div class="blur-content">
+                <div class="signal-row"><span>Entry:</span> <strong>2155.00</strong></div>
+                <div class="signal-row"><span>SL:</span> <strong>2140.00</strong></div>
+                <div class="signal-row"><span>TP:</span> <strong>2185.00</strong></div>
+              </div>
+              <div class="lock-overlay">
+                <i data-lucide="lock"></i>
+                <p>Unlock with VIP Membership</p>
+                <a href="vip.html" class="btn btn-primary btn-small">Join VIP</a>
+              </div>
+            </div>
+            <div class="signal-footer">
+              <span class="time">Posted 10 mins ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <span id="year"></span> TRUE CLUB. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <div id="auth-modal" class="modal">
+      <div class="modal-content glass-card">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-title">Login to TRUE CLUB</h2>
+        <form id="auth-form" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+          </div>
+          <button type="submit" id="submit-auth-btn" class="btn btn-primary full-width">Sign In</button>
+        </form>
+        <div class="auth-toggle">
+          <p id="toggle-text">Don't have an account? <a href="#" id="toggle-auth">Sign Up</a></p>
+        </div>
+        <p id="auth-status" class="auth-status"></p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

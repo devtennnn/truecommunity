@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Settings | TRUE CLUB</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <a href="index.html" class="logo">
+          <i data-lucide="trending-up" class="logo-icon"></i>
+          TRUE <span>CLUB</span> <span class="beta-tag">BETA</span>
+        </a>
+        <nav class="nav" id="main-nav">
+          <a href="signals.html">Live Signals</a>
+          <a href="vip.html">VIP Member</a>
+          <a href="index.html#analysis">Analysis</a>
+          <a href="lessons.html">Lessons</a>
+          <a href="settings.html" class="active auth-only" style="display: none;">Settings</a>
+          <a href="admin.html" class="auth-only" style="display: none;">Admin</a>
+        </nav>
+        <button id="login-btn" class="btn btn-primary">
+          <i data-lucide="user"></i> Login
+        </button>
+      </div>
+    </header>
+
+    <main class="container page-content">
+      <!-- Profile Header Section -->
+      <section class="settings-profile-header fade-in">
+        <div class="profile-avatar-container">
+          <div class="profile-avatar" id="avatar-display">
+            <i data-lucide="user" class="avatar-icon"></i>
+          </div>
+          <div class="profile-info-summary">
+            <h2 id="summary-name">Welcome back!</h2>
+            <div class="profile-meta">
+              <span id="summary-email" class="email-text">Loading account details...</span>
+              <div id="header-status-badge" class="badge">FREE</div>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <a href="index.html" class="btn btn-secondary btn-small">
+            <i data-lucide="home"></i> Back to Home
+          </a>
+        </div>
+      </section>
+
+      <div class="settings-layout fade-in" style="animation-delay: 0.2s">
+        <!-- Sidebar Navigation -->
+        <aside class="settings-sidebar">
+          <div class="sidebar-inner">
+            <button class="side-tab active" data-section="profile">
+              <i data-lucide="user"></i> <span>Profile</span>
+            </button>
+            <button class="side-tab" data-section="community">
+              <i data-lucide="send"></i> <span>Community</span>
+            </button>
+            <button class="side-tab" data-section="security">
+              <i data-lucide="shield-check"></i> <span>Security</span>
+            </button>
+            <button class="side-tab" data-section="billing">
+              <i data-lucide="crown"></i> <span>Membership</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- Main Settings Content -->
+        <div class="settings-content">
+          
+          <!-- Profile Section -->
+          <div id="section-profile" class="settings-pane active">
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <i data-lucide="user-cog"></i>
+                <h3>General Information</h3>
+              </div>
+              <form id="profile-form" class="settings-form">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="display-name">Display Name</label>
+                    <div class="input-wrapper">
+                      <i data-lucide="user"></i>
+                      <input type="text" id="display-name" placeholder="Enter name">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="profile-email">Email Address</label>
+                    <div class="input-wrapper disabled">
+                      <i data-lucide="mail"></i>
+                      <input type="email" id="profile-email" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Unique User ID (UID)</label>
+                  <div class="uid-container">
+                    <input type="text" id="user-id" readonly>
+                    <button type="button" id="copy-uid-btn" class="btn btn-secondary btn-icon-only" title="Copy ID">
+                      <i data-lucide="copy"></i>
+                    </button>
+                  </div>
+                  <p class="form-tip">This is your unique identifier for support and manual verification.</p>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">
+                    <i data-lucide="save"></i> Save Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Community Section -->
+          <div id="section-community" class="settings-pane">
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <i data-lucide="at-sign"></i>
+                <h3>Community Connection</h3>
+              </div>
+              <form id="community-form" class="settings-form">
+                <div class="form-group">
+                  <label for="telegram-handle">Telegram Username</label>
+                  <div class="input-wrapper">
+                    <i data-lucide="send"></i>
+                    <input type="text" id="telegram-handle" placeholder="username">
+                  </div>
+                  <p class="form-tip">Connect your Telegram to receive instant trade alerts and community updates.</p>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">
+                    <i data-lucide="link"></i> Update Handle
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Security Section -->
+          <div id="section-security" class="settings-pane">
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <i data-lucide="lock"></i>
+                <h3>Account Security</h3>
+              </div>
+              <div class="security-options">
+                <div class="security-item">
+                  <div class="security-info">
+                    <h4>Reset Password</h4>
+                    <p>We'll send a secure link to your registered email to update your password.</p>
+                  </div>
+                  <button type="button" id="reset-password-btn" class="btn btn-secondary">
+                    <i data-lucide="mail"></i> Send Reset Link
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Membership Section -->
+          <div id="section-billing" class="settings-pane">
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <i data-lucide="crown"></i>
+                <h3>Membership Details</h3>
+              </div>
+              <div class="membership-card-inner">
+                <div class="plan-status">
+                  <div class="plan-info">
+                    <span class="plan-label">Current Status</span>
+                    <div id="status-badge" class="badge">FREE MEMBER</div>
+                  </div>
+                  <div class="plan-timer">
+                    <i data-lucide="calendar"></i>
+                    <span id="expiry-display">Lifetime Access</span>
+                  </div>
+                </div>
+                <div class="plan-description">
+                  <p id="status-desc">You are currently using the Free plan. Upgrade to VIP to unlock professional signals and advanced technical analysis lessons.</p>
+                </div>
+                <div class="membership-actions">
+                  <a href="vip.html" id="upgrade-btn" class="btn btn-primary full-width">
+                    <i data-lucide="zap"></i> Upgrade to VIP Member
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="copyright">
+          &copy; <span id="year"></span> TRUE CLUB. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Auth Modal (Shared) -->
+    <div id="auth-modal" class="modal">
+      <div class="modal-content glass-card">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-title">Login to TRUE CLUB</h2>
+        <p id="modal-desc">Sign in to access VIP signals and premium lessons.</p>
+        <form id="auth-form" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" id="submit-auth-btn" class="btn btn-primary full-width">Sign In</button>
+        </form>
+        <div class="auth-toggle">
+          <p id="toggle-text">Don't have an account? <a href="#" id="toggle-auth">Sign Up</a></p>
+        </div>
+        <p id="auth-status" class="auth-status"></p>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
