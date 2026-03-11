@@ -55,6 +55,27 @@ createIcons({ icons })
 const yearEl = document.getElementById('year')
 if (yearEl) yearEl.textContent = new Date().getFullYear().toString()
 
+// --- MOBILE MENU ---
+const menuToggle = document.getElementById('menu-toggle')
+const nav = document.querySelector('.nav')
+
+if (menuToggle && nav) {
+  menuToggle.onclick = () => {
+    nav.classList.toggle('active')
+    const icon = menuToggle.querySelector('i')
+    if (icon) {
+      const isMenu = icon.getAttribute('data-lucide') === 'menu'
+      icon.setAttribute('data-lucide', isMenu ? 'x' : 'menu')
+      createIcons({ icons })
+    }
+  }
+
+  // Close menu when clicking a link
+  nav.querySelectorAll('a').forEach(link => {
+    link.onclick = () => nav.classList.remove('active')
+  })
+}
+
 // --- UI STATE ---
 let isSignUp = false
 let unsubscribeUser: (() => void) | null = null
